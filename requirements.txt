@@ -1,1 +1,2 @@
 pydash==4.5.0
+networkx==1.11
