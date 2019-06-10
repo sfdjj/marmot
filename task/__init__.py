@@ -20,6 +20,9 @@ class TaskExec(BaseEntity, DictObject):
         self.action = None
         self.tag = None
         self.pipeline_exec = None
+        self.workflow = None
+        self.start_time = None
+        self.end_time = None
 
     @classmethod
     def create_entity(cls, dict_data: dict):
@@ -32,3 +35,5 @@ class TaskExec(BaseEntity, DictObject):
             if period == TaskPeriodType.running:
                 print(f'task{self.tag}开始执行')
             self.action = period_action_map[period]
+            from service.period_service import PeriodService
+            await PeriodService().update_period(self, period)
