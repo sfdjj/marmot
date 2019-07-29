@@ -3,6 +3,7 @@
 from pydash import filter_
 
 from common import TaskPeriodType, StatusType, FAIL_STATUS, ActionType
+from service.period_service import PeriodService
 from task import TaskExec
 
 
@@ -19,6 +20,7 @@ class TaskExecService:
 
     @staticmethod
     async def sleep_next_process(task_exec: TaskExec):
+        print(f'task_exec{task_exec}')
         for dependency in task_exec.task_exec_dependencies:
             async with dependency.finished:
                 await dependency.finished.wait_for(lambda: dependency['status'] != StatusType.in_process)
@@ -30,3 +32,4 @@ class TaskExecService:
                 task_exec.action = ActionType.ready
 
             period = task_exec.workflow.get_node(task_exec.period).get_next_period_by_action(task_exec.action)
+            await PeriodService().update_period(task_exec, period)
