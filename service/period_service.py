@@ -11,7 +11,7 @@ import datetime
 
 class PeriodService(BaseService):
     async def update_period(self, task_exec: TaskExec, period):
-        self.logger.info(f'{task_exec}更新period为{TaskPeriodType(period).phrase}')
+        print(f'{task_exec}更新period为{TaskPeriodType(period).phrase}')
         if period not in pluck(task_exec.workflow.get_node(task_exec.period).next_period_nodes, 'period'):
             raise PeriodIllegalException(f'{task_exec}不允许将状态从{task_exec.period}修改为{period}')
         assert task_exec.lock.locked()
@@ -27,7 +27,7 @@ class PeriodService(BaseService):
         else:
             status = task_exec.status
 
-        self.logger.info(f'task_exec:{task_exec}状态变更,period:{period},status:{status}')
+        print(f'task_exec:{task_exec}状态变更,period:{period},status:{status}')
         task_exec.period = period
 
         if not task_exec.workflow.get_node(period).next_process:

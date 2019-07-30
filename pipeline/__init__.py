@@ -12,6 +12,7 @@ from task import TaskExec
 class PipelineExec(BaseEntity):
     def __init__(self):
         super().__init__()
+        self.system_code = ''
         self.task_execs = []  # type:List[TaskExec]
         self.build_network = OrderedDiGraph()
 

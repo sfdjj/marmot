@@ -10,7 +10,7 @@ from service.trigger_service import TaskExecTriggerService
 from task import TaskExec
 
 data = [{'tag': 'A', 'dependencies': []},
-        {'tag': 'B', 'dependencies': ['A']},
+        {'tag': 'B', 'dependencies': ['A', 'C']},
         {'tag': 'C', 'dependencies': ['A']},
         {'tag': 'D', 'dependencies': ['B', 'C']}]
 
@@ -33,7 +33,7 @@ for task_exec in pipeline_exec.task_execs:
         pipeline_exec.build_network.add_edge(task_exec, task_exec_dependency)
     if task_exec.period not in END_PERIOD:
         # 启动task
-        print(f'启动task:{task_exec}')
+        print(f'启动task:{task_exec.tag}')
         asyncio_task = asyncio.get_event_loop().create_task(
             TaskExecTriggerService().start_forever(task_exec))
         task_exec.asyncio_task = asyncio_task
