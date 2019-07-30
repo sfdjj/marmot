@@ -73,5 +73,7 @@ period_status_map = {
 }
 
 END_STATUS = [StatusType.success, StatusType.failure, StatusType.stop]
+FAIL_STATUS = [StatusType.failure, StatusType.stop]
+START_PERIOD = [TaskPeriodType.running]
 END_PERIOD = [TaskPeriodType.user_stop, TaskPeriodType.skipped, TaskPeriodType.cancel, TaskPeriodType.system_stop,
               TaskPeriodType.success, TaskPeriodType.loss, TaskPeriodType.failure, TaskPeriodType.timeout]

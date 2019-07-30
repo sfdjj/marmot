@@ -3,5 +3,5 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (marmot)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="Python 3.6.2 virtualenv at ~/.pyenv/versions/portal_task" project-jdk-type="Python SDK" />
 </project>

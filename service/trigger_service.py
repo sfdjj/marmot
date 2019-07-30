@@ -3,11 +3,14 @@
 from asyncio import CancelledError
 
 from common import END_STATUS
+from entity.node import PeriodNode
 from task import TaskExec
 
 
-class TriggerService:
+class TaskExecTriggerService:
     async def start_forever(self, task_exec: TaskExec):
+        print('ffffffffffffffff')
+        print(f'start_forever:{task_exec}')
         try:
             while task_exec.status not in END_STATUS:
                 period_node = task_exec.workflow.get_node(task_exec.period)  # type:PeriodNode
