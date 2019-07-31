@@ -26,7 +26,7 @@ class TaskPeriodType(IntEnum):
         return obj
 
     sleep = 1, '初始化'
-    waiting = 2, '排队中1'
+    waiting = 2, '排队中'
     running = 3, '运行中'
     success = 4, '正常结束'
     loss = 5, '失联'
@@ -36,6 +36,12 @@ class TaskPeriodType(IntEnum):
     cancel = 9, '取消'
     failure = 10, '异常结束'
     skipped = 11, '跳过执行'
+
+    @classmethod
+    def get_phrase(cls, period):
+        for x in cls.__members__.items():
+            if x[1].value == period:
+                return x[1].phrase
 
 
 @unique

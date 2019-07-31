@@ -9,8 +9,7 @@ from task import TaskExec
 
 class TaskExecTriggerService:
     async def start_forever(self, task_exec: TaskExec):
-        print('ffffffffffffffff')
-        print(f'start_forever:{task_exec}')
+        print(f'开始调度:{task_exec.tag}')
         try:
             while task_exec.status not in END_STATUS:
                 period_node = task_exec.workflow.get_node(task_exec.period)  # type:PeriodNode

@@ -22,6 +22,8 @@ class PipelineExecRegistry(metaclass=Singleton):
         pipeline_exec = PipelineExec()
         for task in data:
             task_exec = TaskExec().create_entity(task)
+            from entity.workflow import TaskWorkFlow
+            task_exec.workflow = TaskWorkFlow()
             pipeline_exec.add_task_exec(task_exec)
 
         task_exec_dict = key_by(pipeline_exec.task_execs, 'tag')
@@ -38,11 +40,11 @@ class PipelineExecRegistry(metaclass=Singleton):
             if task_exec.period not in END_PERIOD:
                 # 启动task
                 print(f'启动task:{task_exec.tag}')
-                await TaskExecTriggerService().start_forever(task_exec)
                 asyncio_task = asyncio.get_event_loop().create_task(
                     TaskExecTriggerService().start_forever(task_exec))
                 task_exec.asyncio_task = asyncio_task
 
+        asyncio.sleep(5)
         pipeline_exec.check_circle()
 
     def get_pipeline_exec(self, system_code):

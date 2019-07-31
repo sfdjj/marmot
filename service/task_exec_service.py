@@ -1,5 +1,7 @@
 # Created by wenchao.jia on 2019-06-03.
 # Mail:wenchao.jia@qunar.com
+import asyncio
+
 from pydash import filter_
 
 from common import TaskPeriodType, StatusType, FAIL_STATUS, ActionType
@@ -12,6 +14,7 @@ class TaskExecService:
     async def trigger_task_start(cls, task_exec: TaskExec):
         async with task_exec.lock:
             print(f'开始执行{task_exec.tag}')
+            # await asyncio.sleep(5)
 
     @classmethod
     async def wait_message(cls, task_exec: TaskExec):
@@ -20,7 +23,7 @@ class TaskExecService:
 
     @staticmethod
     async def sleep_next_process(task_exec: TaskExec):
-        print(f'task_exec{task_exec}')
+        print(f'sleep_next_process task_exec{task_exec.tag}')
         for dependency in task_exec.task_exec_dependencies:
             async with dependency.finished:
                 await dependency.finished.wait_for(lambda: dependency['status'] != StatusType.in_process)

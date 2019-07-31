@@ -2,7 +2,7 @@
 # Mail:wenchao.jia@qunar.com
 from pydash import pluck
 
-from common import TaskPeriodType, START_PERIOD, END_PERIOD, period_status_map
+from common import TaskPeriodType, StatusType, START_PERIOD, END_PERIOD, period_status_map
 from common.exception import PeriodIllegalException
 from service import BaseService
 from task import TaskExec
@@ -11,7 +11,7 @@ import datetime
 
 class PeriodService(BaseService):
     async def update_period(self, task_exec: TaskExec, period):
-        print(f'{task_exec}更新period为{TaskPeriodType(period).phrase}')
+        print(f'{task_exec.tag}更新period为{TaskPeriodType(period).phrase},更新前状态{TaskPeriodType(task_exec.period).phrase}')
         if period not in pluck(task_exec.workflow.get_node(task_exec.period).next_period_nodes, 'period'):
             raise PeriodIllegalException(f'{task_exec}不允许将状态从{task_exec.period}修改为{period}')
         assert task_exec.lock.locked()
@@ -26,8 +26,7 @@ class PeriodService(BaseService):
             status = period_status_map[period]
         else:
             status = task_exec.status
-
-        print(f'task_exec:{task_exec}状态变更,period:{period},status:{status}')
+        print(f'task_exec:{task_exec.tag}状态变更,period:{TaskPeriodType(period).phrase},更新前状态{TaskPeriodType(task_exec.period).phrase},status:{StatusType(status)}')
         task_exec.period = period
 
         if not task_exec.workflow.get_node(period).next_process:
