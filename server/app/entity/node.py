@@ -1,7 +1,7 @@
 # Created by wenchao.jia on 2019-06-03.
 # Mail:wenchao.jia@qunar.com
-from common import TaskPeriodType, ActionType
-from service.task_exec_service import TaskExecService
+from server.app.common import TaskPeriodType, ActionType
+from server.app.service.task_exec_service import TaskExecService
 
 
 class PeriodNode:

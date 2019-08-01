@@ -2,9 +2,9 @@
 # Mail:wenchao.jia@qunar.com
 from asyncio import CancelledError
 
-from common import END_STATUS
-from entity.node import PeriodNode
-from task import TaskExec
+from server.app.common import END_STATUS
+from server.app.entity.node import PeriodNode
+from server.app.task import TaskExec
 
 
 class TaskExecTriggerService:

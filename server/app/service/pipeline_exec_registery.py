@@ -7,11 +7,11 @@ import asyncio
 from pydash import key_by
 from pypattyrn.creational.singleton import Singleton
 
-from common import END_PERIOD
-from common.exception import NoPipelineExecException
-from pipeline import PipelineExec
-from service.trigger_service import TaskExecTriggerService
-from task import TaskExec
+from server.app.common import END_PERIOD
+from server.app.common.exception import NoPipelineExecException
+from server.app.pipeline import PipelineExec
+from server.app.service.trigger_service import TaskExecTriggerService
+from server.app.task import TaskExec
 
 
 class PipelineExecRegistry(metaclass=Singleton):
@@ -22,7 +22,7 @@ class PipelineExecRegistry(metaclass=Singleton):
         pipeline_exec = PipelineExec()
         for task in data:
             task_exec = TaskExec().create_entity(task)
-            from entity.workflow import TaskWorkFlow
+            from server.app.entity.workflow import TaskWorkFlow
             task_exec.workflow = TaskWorkFlow()
             pipeline_exec.add_task_exec(task_exec)
 
@@ -44,7 +44,6 @@ class PipelineExecRegistry(metaclass=Singleton):
                     TaskExecTriggerService().start_forever(task_exec))
                 task_exec.asyncio_task = asyncio_task
 
-        asyncio.sleep(5)
         pipeline_exec.check_circle()
 
     def get_pipeline_exec(self, system_code):

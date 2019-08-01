@@ -2,10 +2,10 @@
 # Mail:wenchao.jia@qunar.com
 from pydash import pluck
 
-from common import TaskPeriodType, StatusType, START_PERIOD, END_PERIOD, period_status_map
-from common.exception import PeriodIllegalException
-from service import BaseService
-from task import TaskExec
+from server.app.common import TaskPeriodType, StatusType, START_PERIOD, END_PERIOD, period_status_map
+from server.app.common.exception import PeriodIllegalException
+from server.app.service import BaseService
+from server.app.task import TaskExec
 import datetime
 
 

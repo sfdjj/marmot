@@ -5,8 +5,8 @@ from typing import List
 import networkx
 from networkx import OrderedDiGraph
 
-from entity import BaseEntity
-from task import TaskExec
+from server.app.entity import BaseEntity
+from server.app.task import TaskExec
 
 
 class PipelineExec(BaseEntity):

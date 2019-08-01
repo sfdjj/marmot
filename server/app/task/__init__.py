@@ -4,8 +4,8 @@ from asyncio import Event
 from collections import defaultdict
 from typing import List
 
-from common import StatusType, TaskPeriodType, period_action_map
-from entity import DictObject, BaseEntity
+from server.app.common import StatusType, TaskPeriodType, period_action_map
+from server.app.entity import DictObject, BaseEntity
 
 
 class TaskExec(BaseEntity, DictObject):
@@ -33,7 +33,7 @@ class TaskExec(BaseEntity, DictObject):
     async def update_period(self, period):
         async with self.lock:
             if period == TaskPeriodType.running:
-                print(f'task{self.tag}开始执行')
+                print(f'server.app.task{self.tag}开始执行')
             self.action = period_action_map[period]
-            from service.period_service import PeriodService
+            from server.service.period_service import PeriodService
             await PeriodService().update_period(self, period)

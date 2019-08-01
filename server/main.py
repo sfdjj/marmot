@@ -1,10 +1,10 @@
 # Created by wenchao.jia on 2019-05-31.
 # Mail:wenchao.jia@qunar.com
 import asyncio
+import uvloop
 
-# asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
-from common import TaskPeriodType
-from service.pipeline_exec_registery import PipelineExecRegistry
+asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+from server.app.service.pipeline_exec_registery import PipelineExecRegistry
 
 
 async def test():
@@ -18,4 +18,3 @@ async def test():
 
 if __name__ == '__main__':
     asyncio.run(test())
-
