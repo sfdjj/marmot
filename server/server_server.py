@@ -44,4 +44,4 @@ if __name__ == '__main__':
     app.add_routes(routes)
     print(routes)
     with aiomonitor.start_monitor(asyncio.get_event_loop()):
-        web.run_app(app, port=8000)
+        web.run_app(app, port=9001)
